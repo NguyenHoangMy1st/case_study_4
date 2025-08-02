@@ -30,7 +30,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/auth/login").permitAll() // Vẫn cho phép truy cập để form login hoạt động
+                        .requestMatchers("/auth/login").permitAll() 
                         .requestMatchers("/teacher/**").hasAuthority("TEACHER")
                         .requestMatchers("/student/**").hasAuthority("STUDENT")
                         .requestMatchers("/users/**").hasAuthority("ADMIN")
