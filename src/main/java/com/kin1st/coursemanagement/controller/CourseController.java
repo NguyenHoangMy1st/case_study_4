@@ -24,7 +24,6 @@ public class CourseController {
     @Autowired
     private UserService userService;
 
-    // Phương thức này nhận đối tượng Authentication để kiểm tra quyền
     private boolean hasAuthority(Authentication authentication, String authorityName) {
         if (authentication == null) {
             return false;
@@ -33,7 +32,6 @@ public class CourseController {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equalsIgnoreCase(authorityName));
     }
 
-    // Phương thức này trả về đối tượng User của bạn, lấy từ database
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated() || authentication.getPrincipal() instanceof String) {
@@ -48,8 +46,6 @@ public class CourseController {
     public String listCourses(Model model) {
         User currentUser = getCurrentUser();
         if (currentUser == null) {
-            // Trường hợp này có thể xảy ra khi người dùng chưa đăng nhập,
-            // nhưng Spring Security thường sẽ chuyển hướng về trang login trước.
             return "redirect:/auth/login";
         }
 
@@ -94,7 +90,6 @@ public class CourseController {
             return "teacher/course/add";
         }
 
-        // Kiểm tra quyền bằng cách truyền đối tượng Authentication vào
         if (currentUser == null || !(hasAuthority(authentication, "TEACHER") || hasAuthority(authentication, "ADMIN"))) {
             return "redirect:/courses";
         }
@@ -167,7 +162,6 @@ public class CourseController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = getCurrentUser();
 
-        // Kiểm tra quyền bằng cách truyền đối tượng Authentication vào
         if (currentUser == null || !(hasAuthority(authentication, "TEACHER") || hasAuthority(authentication, "ADMIN"))) {
             return "redirect:/courses";
         }
