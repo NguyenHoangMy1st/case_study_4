@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar Layout</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="sidebar-student" class="w-64 bg-white shadow-md h-screen fixed">
+    <div class="p-6 font-bold text-xl border-b">Course Manager</div>
+    <nav class="mt-4">
+        <ul class="space-y-2">
+            <li><a href="/student/dashboard" class="block px-6 py-2 hover:bg-gray-200">Dashboard</a></li>
+            <li><a href="/courses" class="block px-6 py-2 hover:bg-gray-200">Courses</a></li>
+            <li>
+                <form th:action="@{/auth/logout}" method="post">
+                    <button type="submit" class="w-full text-left block px-6 py-2 text-red-500 hover:bg-gray-200">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>

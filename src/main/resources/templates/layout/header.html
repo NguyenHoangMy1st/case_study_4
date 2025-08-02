@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="header">
+    <header class="bg-white shadow p-4 flex justify-between items-center mb-6">
+        <div class="text-xl font-bold text-indigo-600">
+            <a th:href="@{/courses}">CourseApp</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <form th:action="@{/courses/search}" method="get" class="flex">
+                <input type="text" name="keyword" placeholder="Tìm khóa học..." class="border rounded-l px-3 py-2">
+                <button type="submit" class="bg-indigo-500 text-white px-4 rounded-r">Tìm</button>
+            </form>
+            <a th:href="@{/courses/my-courses}" class="text-indigo-600 font-semibold">Khóa học của tôi</a>
+
+            <form sec:authorize="isAuthenticated()" th:action="@{/auth/logout}" method="post">
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Đăng xuất</button>
+            </form>
+            <a sec:authorize="isAnonymous()" th:href="@{/auth/login}"
+               class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Đăng nhập</a>
+        </div>
+    </header>
+</div>
+</body>
+</html>

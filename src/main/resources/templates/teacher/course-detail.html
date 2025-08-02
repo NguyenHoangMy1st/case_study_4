@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết khoá học</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="flex">
+    <div th:insert="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="ml-64 p-8 w-full">
+        <section class="container mx-auto px-4 py-6 max-w-3xl bg-white rounded shadow">
+            <h1 class="text-3xl font-bold mb-4" th:text="${course.title}">Tiêu đề</h1>
+            <div class="mb-4 text-gray-600">
+                Giảng viên: <span th:text="${course.teacher.username}"></span>
+            </div>
+            <div class="mb-4">
+                <img th:if="${course.imageUrl != null}" th:src="@{${course.imageUrl}}" alt="Ảnh minh hoạ" class="w-full rounded shadow">
+            </div>
+            <div class="text-gray-700 whitespace-pre-line" th:text="${course.description}"></div>
+            <div class="mt-6">
+                <a href="/courses" class="text-blue-500 hover:underline">Quay lại danh sách</a>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+</html>

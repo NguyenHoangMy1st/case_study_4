@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách khoá học</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+<div th:replace="~{layout/header :: header}"></div>
+
+<div class="flex">
+    <div th:insert="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="ml-64 p-8 w-full">
+        <div th:fragment="courseListFragment" class="container mx-auto px-4 py-6 max-w-5xl bg-white rounded shadow">
+            <h1 class="text-2xl font-bold mb-4">Danh sách khoá học</h1>
+
+            <table class="min-w-full">
+                <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4 border-b">STT</th>
+                    <th class="py-2 px-4 border-b">Tiêu đề</th>
+                    <th class="py-2 px-4 border-b">Mô tả</th>
+                    <th class="py-2 px-4 border-b">Giảng viên</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course, iterStat : ${courses}" class="hover:bg-gray-50">
+                    <td class="py-2 px-4 border-b" th:text="${iterStat.count}"></td>
+                    <td class="py-2 px-4 border-b">
+                        <a th:href="@{/courses/detail/{id}(id=${course.id})}" class="block" th:text="${course.title}"></a>
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                        <div class="line-clamp-2" th:text="${course.description}"></div>
+                        <div th:if="${#strings.length(course.description) > 100}">
+                            <a th:href="@{/courses/detail/{id}(id=${course.id})}" class="text-blue-500 hover:underline mt-1">Xem thêm</a>
+                        </div>
+                    </td>
+                    <td class="py-2 px-4 border-b" style="min-width: 120px;" th:text="${course.teacher.name}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
